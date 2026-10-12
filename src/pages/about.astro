@@ -1,4 +1,26 @@
 ---
+import Header from '../components/Header.astro';
+import '../styles/global.css';
+
+const pageTitle = "About Me";
+
+
+const identity = {
+  firstName: "fc",
+  country: "UK",
+  occupation: "designer/maker",
+  hobbies: ["photography", "illustration", "knitting", "reading"],
+};
+
+const skills = ["product management", "design", "foreign languages"];
+
+const happy = true;
+const finished = false;
+const goal = 3;
+
+const skillColour = "cornflowerblue";
+const fontWeight = "bold";
+const textCase = "uppercase";
 
 ---
 
@@ -9,14 +31,35 @@
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<title>{pageTitle}</title>
+        <style define:vars={{skillColour, fontWeight, textCase}}>
+      h1 {
+        color: #1f00ba;
+        font-size: 4rem;
+      }
+      .skill{
+        color: var(--skillColour);
+        font-weight: var(--fontWeight);
+        text-transform: var(--textCase);
+      }
+    </style>
 	</head>
 	<body>
-		<a href="/">✴︎Home✴︎</a>
-        <a href="/about/">✴︎About✴︎</a>
-		<a href="/blog/">✴︎Blog✴︎</a>
-        <h1>About</h1>
+		<Header />
+        <h1>{pageTitle}</h1>
         <h2>This is a placeholder About Me page</h2>
-        <p>On this page I will put something about me</p>
+        <p>Here are a few facts about me:</p>
+        <ul>
+        <li>My name is {identity.firstName}.</li>
+        <li>I am based in the {identity.country} and I am a {identity.occupation}</li>
+  {identity.hobbies.length >= 2 &&
+        <li>Two of my hobbies are: {identity.hobbies[0]} and {identity.hobbies[1]}</li>
+}
+</ul>
+<p>My skills are:</p>
+<ul>
+  {skills.map((skill) => <li class="skill">{skill}</li>)}
+</ul>
+
 	</body>
 </html>
